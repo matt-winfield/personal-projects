@@ -27,7 +27,7 @@ export default function Index() {
                 {selectedCountry ? selectedCountry.properties.name : ''}
             </div>
             <ComposableMap className="w-full flex-grow">
-                <ZoomableGroup zoom={1.2} maxZoom={15}>
+                <ZoomableGroup zoom={1.2} maxZoom={20}>
                     <Geographies geography={geoUrl}>
                         {({ geographies }) =>
                             geographies.map((geo: GeoType) => (
