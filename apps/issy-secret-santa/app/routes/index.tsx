@@ -22,12 +22,12 @@ export default function Index() {
     );
 
     return (
-        <main className="relative h-full">
-            <div className="text-center text-lg">
+        <main className="flex h-full flex-col items-center">
+            <div className="h-[1rem] text-lg">
                 {selectedCountry ? selectedCountry.properties.name : ''}
             </div>
-            <ComposableMap>
-                <ZoomableGroup minZoom={0.5} maxZoom={15}>
+            <ComposableMap className="w-full flex-grow">
+                <ZoomableGroup zoom={1.2} maxZoom={15}>
                     <Geographies geography={geoUrl}>
                         {({ geographies }) =>
                             geographies.map((geo: GeoType) => (
