@@ -22,7 +22,7 @@ export default function Index() {
     );
 
     return (
-        <main className="container relative h-full">
+        <main className="relative h-full">
             <div className="text-center text-lg">
                 {selectedCountry ? selectedCountry.properties.name : ''}
             </div>
