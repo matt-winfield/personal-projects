@@ -6,7 +6,7 @@ import {
     ZoomableGroup,
 } from 'react-simple-maps';
 
-const geoUrl = '/countries-110m.json';
+const geoUrl = '/countries-50m.json';
 
 type GeoType = {
     Type: string;
@@ -21,16 +21,12 @@ export default function Index() {
         null,
     );
 
-    const width = typeof window !== 'undefined' ? window.innerWidth : undefined;
-    const height =
-        typeof window !== 'undefined' ? window.innerHeight - 100 : undefined;
-
     return (
         <main className="relative h-full">
             <div className="text-center text-lg">
                 {selectedCountry ? selectedCountry.properties.name : ''}
             </div>
-            <ComposableMap width={width} height={height}>
+            <ComposableMap>
                 <ZoomableGroup minZoom={0.5} maxZoom={15}>
                     <Geographies geography={geoUrl}>
                         {({ geographies }) =>
