@@ -123,7 +123,6 @@ export default function App() {
             <Layout>
                 <div className="mt-10 flex min-h-full flex-col justify-between">
                     <div className="flex-1 basis-[1px]">{outlet}</div>
-                    <Footer />
                 </div>
             </Layout>
         </ThemeProvider>
