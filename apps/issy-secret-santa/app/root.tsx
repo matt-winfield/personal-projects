@@ -10,7 +10,11 @@ import {
 } from '@remix-run/react';
 import tailwindStylesheetUrl from './styles/tailwind.css?url';
 import fontsStylesheetUrl from './styles/fonts.css?url';
-import { LinksFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
+import {
+    LinksFunction,
+    LoaderFunction,
+    MetaFunction,
+} from '@remix-run/cloudflare';
 import { Footer } from './features/footer';
 import { getTheme } from './features/themes/themeUtils';
 import { ThemeProvider, useTheme } from './features/themes/themeProvider';

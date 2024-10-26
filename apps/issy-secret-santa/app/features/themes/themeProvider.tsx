@@ -15,12 +15,11 @@ export const ThemeProvider = ({
     children,
     initialTheme,
 }: ThemeProviderProps) => {
-    const [theme, setTheme] = useState(initialTheme);
+    const theme = 'light';
 
     const _setTheme = (theme: Theme) => {
         document.documentElement.classList.toggle('dark', theme === 'dark');
         document.cookie = setThemeCookie(theme);
-        setTheme(theme);
     };
 
     return (
