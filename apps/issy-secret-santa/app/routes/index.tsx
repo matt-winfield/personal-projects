@@ -6,7 +6,7 @@ import {
     ZoomableGroup,
 } from 'react-simple-maps';
 
-const geoUrl = '/countries-50m.json';
+const geoUrl = '/countries-110m.json';
 
 type GeoType = {
     Type: string;
