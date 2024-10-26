@@ -122,9 +122,7 @@ export default function App() {
     return (
         <ThemeProvider initialTheme={theme}>
             <Layout>
-                <div className="flex min-h-full flex-col justify-between">
-                    <div className="flex-1 basis-[1px]">{outlet}</div>
-                </div>
+                <div className="h-full flex-1 basis-[1px]">{outlet}</div>
             </Layout>
         </ThemeProvider>
     );
