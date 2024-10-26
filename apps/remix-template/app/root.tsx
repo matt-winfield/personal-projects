@@ -13,6 +13,7 @@ import fontsStylesheetUrl from './styles/fonts.css?url';
 import {
     LinksFunction,
     LoaderFunction,
+    LoaderFunctionArgs,
     MetaFunction,
 } from '@remix-run/cloudflare';
 import { Footer } from './features/footer';
@@ -146,7 +147,7 @@ function Layout({ children }: { children: React.ReactNode }) {
     );
 }
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
     const theme = getTheme(request);
 
     return { theme };

@@ -23,7 +23,7 @@ export default function Index() {
 
     return (
         <main className="flex h-full flex-col items-center">
-            <div className="h-[1rem] text-lg">
+            <div className="h-[2rem] text-lg">
                 {selectedCountry ? selectedCountry.properties.name : ''}
             </div>
             <ComposableMap className="w-full flex-grow">
