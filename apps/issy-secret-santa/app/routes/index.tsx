@@ -21,13 +21,16 @@ export default function Index() {
         null,
     );
 
+    const width = typeof window === 'undefined' ? 0 : window.innerWidth;
+    const height = typeof window === 'undefined' ? 0 : window.innerHeight - 100;
+
     return (
         <main className="relative h-full">
             <div className="text-center text-lg">
                 {selectedCountry ? selectedCountry.properties.name : ''}
             </div>
-            <ComposableMap>
-                <ZoomableGroup>
+            <ComposableMap width={width} height={height}>
+                <ZoomableGroup zoom={1} minZoom={0.5} maxZoom={15}>
                     <Geographies geography={geoUrl}>
                         {({ geographies }) =>
                             geographies.map((geo: GeoType) => (
