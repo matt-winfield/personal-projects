@@ -42,6 +42,7 @@ export default function Index() {
                                         default: {
                                             stroke: '#88F',
                                             strokeWidth: 0.3,
+                                            outline: 'none',
                                             fill:
                                                 selectedCountry?.rsmKey ===
                                                 geo.rsmKey
@@ -50,9 +51,11 @@ export default function Index() {
                                         },
                                         hover: {
                                             fill: '#F53',
+                                            outline: 'none',
                                         },
                                         pressed: {
-                                            fill: '#E42',
+                                            fill: '#F53',
+                                            outline: 'none',
                                         },
                                     }}
                                 />
