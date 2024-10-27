@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
-import { locations } from '@/features/locations/locations';
+import { Location, locations } from '@/features/locations/locations';
 import { cn } from '@/utils/misc';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
     ComposableMap,
     Geographies,
@@ -23,6 +23,11 @@ const pictureOffset = { x: 1, y: 1 };
 const initialZoom = 1.2;
 
 export const ImageMap = () => {
+    const [currentLocationIndex, setCurrentLocationIndex] = useState(0);
+    const [completedLocations, setCompletedLocations] = useState(
+        [] as number[],
+    );
+    const [wrong, setWrong] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState<GeoType | null>(
         null,
     );
@@ -39,25 +44,63 @@ export const ImageMap = () => {
         root.style.setProperty('--image-scale', (5 / zoom).toString());
     };
 
+    const onCountryClick = useCallback((geo: GeoType) => {
+        setSelectedCountry(geo);
+        setWrong(false);
+    }, []);
+
+    const onCountrySubmit = useCallback(() => {
+        if (!selectedCountry) {
+            return;
+        }
+
+        if (
+            selectedCountry.properties.name.toLowerCase() ===
+            locations[currentLocationIndex].name.toLowerCase()
+        ) {
+            setCompletedLocations((prev) => [...prev, currentLocationIndex]);
+            setCurrentLocationIndex((prev) => prev + 1);
+            setWrong(false);
+            setSelectedCountry(null);
+
+            if (completedLocations.length === locations.length) {
+                console.log('Game completed!');
+            }
+        } else {
+            setWrong(true);
+        }
+    }, [selectedCountry, currentLocationIndex]);
+
     return (
-        <div className="relative h-full w-full flex-1">
-            <div className="absolute left-1/2 top-0 z-10 flex w-11/12 -translate-x-1/2 flex-col items-center rounded-b-2xl bg-background p-5 text-lg">
+        <div className="relative flex h-full w-full flex-1 flex-col items-stretch">
+            <div className="absolute left-1/2 top-0 z-10 flex w-11/12 -translate-x-1/2 flex-col items-center rounded-b-2xl bg-background p-4 text-lg">
                 <div className="text-center">
                     Where in the world was this image taken?
                 </div>
+                <img
+                    src={locations[currentLocationIndex].mainImage}
+                    className="max-h-52 max-w-full"
+                />
             </div>
-            <div className="absolute bottom-0 left-1/2 z-10 flex w-11/12 -translate-x-1/2 flex-col items-center rounded-t-2xl bg-amber-700 p-5 text-lg text-white">
+            <div className="absolute bottom-0 left-1/2 z-10 flex w-11/12 -translate-x-1/2 flex-col items-center rounded-t-2xl bg-amber-600 p-5 text-lg text-white">
                 <div className="text-center">
                     Selected country: {selectedCountry?.properties.name}
                 </div>
+                {wrong && (
+                    <div className="text-center text-red-700">
+                        ❌ Incorrect! Try again
+                    </div>
+                )}
                 <Button
                     className="mt-3"
-                    onClick={() => setSelectedCountry(null)}
+                    onClick={onCountrySubmit}
+                    disabled={selectedCountry === null}
                 >
                     Submit
                 </Button>
             </div>
-            <ComposableMap className="h-full w-full bg-sky-200">
+            <div className="h-20 w-full bg-sky-200" />
+            <ComposableMap className="w-full flex-1 bg-sky-200">
                 <ZoomableGroup
                     zoom={initialZoom}
                     maxZoom={40}
@@ -69,20 +112,19 @@ export const ImageMap = () => {
                                 <Geography
                                     key={geo.rsmKey}
                                     geography={geo}
-                                    onClick={() => {
-                                        setSelectedCountry(geo);
-                                    }}
+                                    onClick={() => onCountryClick(geo)}
                                     id={geo.rsmKey}
                                     style={{
                                         default: {
                                             stroke: '#88F',
                                             strokeWidth: 0.3,
                                             outline: 'none',
-                                            fill:
-                                                selectedCountry?.rsmKey ===
-                                                geo.rsmKey
-                                                    ? '#F53'
-                                                    : '#112211',
+                                            fill: getCountryFill(
+                                                selectedCountry,
+                                                geo,
+                                                completedLocations,
+                                                locations,
+                                            ),
                                         },
                                         hover: {
                                             fill: '#F53',
@@ -120,4 +162,27 @@ export const ImageMap = () => {
             </ComposableMap>
         </div>
     );
+};
+
+const getCountryFill = (
+    selectedCountry: GeoType | null,
+    geo: GeoType,
+    completedLocations: number[],
+    locations: Location[],
+) => {
+    if (selectedCountry?.rsmKey === geo.rsmKey) {
+        return '#F53';
+    }
+
+    if (
+        completedLocations.includes(
+            locations.findIndex(
+                (location) => location.name === geo.properties.name,
+            ),
+        )
+    ) {
+        return '#0F0';
+    }
+
+    return '#112211';
 };
