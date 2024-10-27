@@ -46,7 +46,7 @@ export default function Index() {
             <ComposableMap className="w-full flex-1 bg-sky-200">
                 <ZoomableGroup
                     zoom={initialZoom}
-                    maxZoom={30}
+                    maxZoom={40}
                     onMoveEnd={onMoveEnd}
                 >
                     <Geographies geography={geoUrl}>
@@ -97,7 +97,7 @@ export default function Index() {
                                 className={cn(
                                     'peer origin-center transition-all duration-300 ease-in-out hover:scale-[5] active:scale-[5] peer-hover:pointer-events-none peer-hover:opacity-0 peer-active:pointer-events-none peer-active:opacity-0',
                                     zoom < 5
-                                        ? `scale-[var(--image-scale)] hover:scale-[calc(var(--image-scale)*5)] active:scale-[calc(var(--image-scale)*5)]`
+                                        ? `scale-[var(--image-scale)] hover:scale-[calc(var(--image-scale)*10)] active:scale-[calc(var(--image-scale)*10)]`
                                         : '',
                                 )}
                             />
