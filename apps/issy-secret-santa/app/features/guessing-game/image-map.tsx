@@ -52,7 +52,10 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
     }) => {
         setZoom(zoom);
         const root = document.querySelector(':root') as HTMLElement;
-        root.style.setProperty('--image-scale', (5 / zoom).toString());
+        root.style.setProperty(
+            '--image-scale',
+            Math.min(20 / zoom, 10).toString(),
+        );
     };
 
     const onCountryClick = useCallback((geo: GeoType) => {
@@ -93,7 +96,7 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
         <div className="relative flex h-full w-full flex-1 flex-col items-stretch">
             <div
                 className={cn(
-                    'absolute left-1/2 top-0 z-10 flex w-11/12 -translate-x-1/2 flex-col items-center rounded-b-2xl bg-background p-4 text-lg',
+                    'text-md absolute left-1/2 top-0 z-10 flex w-11/12 -translate-x-1/2 flex-col items-center rounded-b-2xl bg-background px-4 pb-2 pt-1',
                     gameFinished &&
                         'pointer-events-none opacity-0 transition-opacity duration-300 ease-in-out',
                 )}
@@ -108,7 +111,7 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
             </div>
             <div
                 className={cn(
-                    'absolute bottom-0 left-1/2 z-10 flex w-11/12 -translate-x-1/2 flex-col items-center rounded-t-2xl bg-amber-600 p-5 text-lg text-white',
+                    'absolute bottom-0 left-1/2 z-10 flex w-11/12 -translate-x-1/2 flex-col items-center rounded-t-2xl bg-amber-600 px-5 py-2 text-lg text-white',
                     gameFinished &&
                         'pointer-events-none opacity-0 transition-opacity duration-300 ease-in-out',
                 )}
@@ -152,8 +155,10 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
                 )}
             >
                 <div className="flex flex-col items-center">
-                    <div className="text-4xl">Congratulations!</div>
-                    <div className="text-xl">You have completed the game!</div>
+                    <div className="text-center text-4xl">Congratulations!</div>
+                    <div className="text-center text-xl">
+                        You have completed the game!
+                    </div>
                     <Button className="mt-5" onClick={onFinish}>
                         Continue
                     </Button>
@@ -213,8 +218,8 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
                                     'peer origin-center transition-all duration-300 ease-in-out hover:scale-[5] active:scale-[5] peer-hover:pointer-events-none peer-hover:opacity-0 peer-active:pointer-events-none peer-active:opacity-0',
                                     !completedLocations.includes(index) &&
                                         'pointer-events-none opacity-0',
-                                    zoom < 5
-                                        ? `scale-[var(--image-scale)] hover:scale-[calc(var(--image-scale)*10)] active:scale-[calc(var(--image-scale)*10)]`
+                                    zoom < 20
+                                        ? `scale-[var(--image-scale)] hover:scale-[calc(var(--image-scale)*8)] active:scale-[calc(var(--image-scale)*8)]`
                                         : '',
                                 )}
                             />
