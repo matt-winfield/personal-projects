@@ -1,4 +1,5 @@
 import { locations } from '@/features/locations/locations';
+import { cn } from '@/utils/misc';
 import { useState } from 'react';
 import {
     ComposableMap,
@@ -18,11 +19,22 @@ type GeoType = {
 };
 
 const pictureOffset = { x: 1, y: 1 };
+const initialZoom = 1.2;
 
 export default function Index() {
     const [selectedCountry, setSelectedCountry] = useState<GeoType | null>(
         null,
     );
+    const [zoom, setZoom] = useState(initialZoom);
+
+    const onMoveEnd = ({
+        zoom,
+    }: {
+        coordinates: [number, number];
+        zoom: number;
+    }) => {
+        setZoom(zoom);
+    };
 
     return (
         <main className="flex h-full flex-col items-center">
@@ -30,7 +42,11 @@ export default function Index() {
                 {selectedCountry ? selectedCountry.properties.name : ''}
             </div>
             <ComposableMap className="w-full flex-1 bg-sky-200">
-                <ZoomableGroup zoom={1.2} maxZoom={30}>
+                <ZoomableGroup
+                    zoom={initialZoom}
+                    maxZoom={30}
+                    onMoveEnd={onMoveEnd}
+                >
                     <Geographies geography={geoUrl}>
                         {({ geographies }) =>
                             geographies.map((geo: GeoType) => (
@@ -76,7 +92,12 @@ export default function Index() {
                                 width={image.width ?? 5}
                                 height={image.height ?? 5}
                                 style={{ transformBox: 'fill-box' }}
-                                className="peer origin-center transition-all duration-300 ease-in-out hover:scale-[5] active:scale-[5] peer-hover:pointer-events-none peer-hover:opacity-0 peer-active:pointer-events-none peer-active:opacity-0"
+                                className={cn(
+                                    'peer origin-center transition-all duration-300 ease-in-out hover:scale-[5] active:scale-[5] peer-hover:pointer-events-none peer-hover:opacity-0 peer-active:pointer-events-none peer-active:opacity-0',
+                                    zoom && zoom < 5
+                                        ? 'scale-[2] hover:scale-[10] active:scale-[10]'
+                                        : '',
+                                )}
                             />
                         ))}
                 </ZoomableGroup>
