@@ -112,15 +112,6 @@ export const locations: Location[] = [
         ],
     },
     {
-        name: 'Italy',
-        mainImage: '/images/italy/3.jpg',
-        images: [
-            { src: '/images/italy/1.jpg', position: { x: 425, y: 149 } },
-            { src: '/images/italy/2.jpg', position: { x: 425, y: 153.5 } },
-            { src: '/images/italy/3.jpg', position: { x: 430, y: 155 } },
-        ],
-    },
-    {
         name: 'Colombia',
         mainImage: '/images/colombia/1.jpg',
         images: [
@@ -131,6 +122,15 @@ export const locations: Location[] = [
             { src: '/images/colombia/6.jpg', position: { x: 202, y: 274 } },
             { src: '/images/colombia/7.jpg', position: { x: 196, y: 286 } },
             { src: '/images/colombia/1.jpg', position: { x: 200, y: 280 } },
+        ],
+    },
+    {
+        name: 'Italy',
+        mainImage: '/images/italy/3.jpg',
+        images: [
+            { src: '/images/italy/1.jpg', position: { x: 425, y: 149 } },
+            { src: '/images/italy/2.jpg', position: { x: 425, y: 153.5 } },
+            { src: '/images/italy/3.jpg', position: { x: 430, y: 155 } },
         ],
     },
     {

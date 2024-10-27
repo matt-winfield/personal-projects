@@ -99,7 +99,7 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
                 )}
             >
                 <div className="text-center">
-                    Where in the world was this image taken?
+                    Where in the world was this photo taken?
                 </div>
                 <img
                     src={locations[currentLocationIndex].mainImage}
