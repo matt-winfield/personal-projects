@@ -8,6 +8,8 @@ import {
     Geography,
     ZoomableGroup,
 } from 'react-simple-maps';
+import { useWindowSize } from '@uidotdev/usehooks';
+import Confetti from 'react-confetti';
 
 export const geoUrl = '/countries-50m.json';
 
@@ -27,7 +29,9 @@ export const ImageMap = () => {
     const [completedLocations, setCompletedLocations] = useState(
         [] as number[],
     );
-    const [wrong, setWrong] = useState(false);
+    const [isWrong, setIsWrong] = useState(false);
+    const [confetti, setConfetti] = useState(false);
+    const { width, height } = useWindowSize();
     const [selectedCountry, setSelectedCountry] = useState<GeoType | null>(
         null,
     );
@@ -46,7 +50,7 @@ export const ImageMap = () => {
 
     const onCountryClick = useCallback((geo: GeoType) => {
         setSelectedCountry(geo);
-        setWrong(false);
+        setIsWrong(false);
     }, []);
 
     const onCountrySubmit = useCallback(() => {
@@ -60,14 +64,15 @@ export const ImageMap = () => {
         ) {
             setCompletedLocations((prev) => [...prev, currentLocationIndex]);
             setCurrentLocationIndex((prev) => prev + 1);
-            setWrong(false);
+            setIsWrong(false);
             setSelectedCountry(null);
+            setConfetti(true);
 
             if (completedLocations.length === locations.length) {
                 console.log('Game completed!');
             }
         } else {
-            setWrong(true);
+            setIsWrong(true);
         }
     }, [selectedCountry, currentLocationIndex]);
 
@@ -86,7 +91,7 @@ export const ImageMap = () => {
                 <div className="text-center">
                     Selected country: {selectedCountry?.properties.name}
                 </div>
-                {wrong && (
+                {isWrong && (
                     <div className="text-center text-red-700">
                         ❌ Incorrect! Try again
                     </div>
@@ -160,6 +165,23 @@ export const ImageMap = () => {
                         ))}
                 </ZoomableGroup>
             </ComposableMap>
+            {confetti && (
+                <Confetti
+                    className="pointer-events-none fixed left-0 top-0 z-50"
+                    width={width ?? 0}
+                    height={height ?? 0}
+                    confettiSource={{
+                        x: (width ?? 0) / 2,
+                        y: height ?? 0,
+                        w: 2,
+                        h: 0,
+                    }}
+                    initialVelocityX={5}
+                    initialVelocityY={{ min: -10, max: -20 }}
+                    recycle={false}
+                    onConfettiComplete={() => setConfetti(false)}
+                />
+            )}
         </div>
     );
 };
