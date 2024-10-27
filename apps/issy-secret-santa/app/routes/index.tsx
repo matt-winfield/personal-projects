@@ -34,6 +34,8 @@ export default function Index() {
         zoom: number;
     }) => {
         setZoom(zoom);
+        const root = document.querySelector(':root') as HTMLElement;
+        root.style.setProperty('--image-scale', (5 / zoom).toString());
     };
 
     return (
@@ -94,8 +96,8 @@ export default function Index() {
                                 style={{ transformBox: 'fill-box' }}
                                 className={cn(
                                     'peer origin-center transition-all duration-300 ease-in-out hover:scale-[5] active:scale-[5] peer-hover:pointer-events-none peer-hover:opacity-0 peer-active:pointer-events-none peer-active:opacity-0',
-                                    zoom && zoom < 5
-                                        ? 'scale-[2] hover:scale-[10] active:scale-[10]'
+                                    zoom < 5
+                                        ? `scale-[var(--image-scale)] hover:scale-[calc(var(--image-scale)*5)] active:scale-[calc(var(--image-scale)*5)]`
                                         : '',
                                 )}
                             />

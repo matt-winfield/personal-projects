@@ -10,6 +10,7 @@ import {
 } from '@remix-run/react';
 import tailwindStylesheetUrl from './styles/tailwind.css?url';
 import fontsStylesheetUrl from './styles/fonts.css?url';
+import stylesUrl from './styles/styles.css?url';
 import {
     LinksFunction,
     LoaderFunction,
@@ -30,6 +31,7 @@ export const links: LinksFunction = () => {
     return [
         { rel: 'stylesheet', href: tailwindStylesheetUrl, as: 'style' },
         { rel: 'stylesheet', href: fontsStylesheetUrl, as: 'style' },
+        { rel: 'stylesheet', href: stylesUrl, as: 'style' },
     ].filter(Boolean);
 };
 
