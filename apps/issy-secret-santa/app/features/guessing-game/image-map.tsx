@@ -41,6 +41,11 @@ export const ImageMap = () => {
 
     return (
         <div className="relative h-full w-full flex-1">
+            <div className="absolute left-1/2 top-0 z-10 flex w-11/12 -translate-x-1/2 flex-col items-center rounded-b-2xl bg-background p-5 text-lg">
+                <div className="text-center">
+                    Where in the world was this image taken?
+                </div>
+            </div>
             <div className="absolute bottom-0 left-1/2 z-10 flex w-11/12 -translate-x-1/2 flex-col items-center rounded-t-2xl bg-amber-700 p-5 text-lg text-white">
                 <div className="text-center">
                     Selected country: {selectedCountry?.properties.name}
