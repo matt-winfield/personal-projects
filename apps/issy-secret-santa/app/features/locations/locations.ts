@@ -25,27 +25,6 @@ export const locations: Location[] = [
         ],
     },
     {
-        name: 'Andorra',
-        mainImage: '/images/andorra/1.jpg',
-        images: [
-            { src: '/images/andorra/2.jpg', position: { x: 400, y: 150 } },
-            { src: '/images/andorra/1.jpg', position: { x: 403, y: 149 } },
-        ],
-    },
-    {
-        name: 'Colombia',
-        mainImage: '/images/colombia/1.jpg',
-        images: [
-            { src: '/images/colombia/2.jpg', position: { x: 210, y: 285 } },
-            { src: '/images/colombia/3.jpg', position: { x: 208, y: 280 } },
-            { src: '/images/colombia/4.jpg', position: { x: 202, y: 287 } },
-            { src: '/images/colombia/5.jpg', position: { x: 197, y: 273 } },
-            { src: '/images/colombia/6.jpg', position: { x: 202, y: 274 } },
-            { src: '/images/colombia/7.jpg', position: { x: 196, y: 286 } },
-            { src: '/images/colombia/1.jpg', position: { x: 200, y: 280 } },
-        ],
-    },
-    {
         name: 'Costa Rica',
         mainImage: '/images/costa-rica/2.jpg',
         images: [
@@ -55,12 +34,11 @@ export const locations: Location[] = [
         ],
     },
     {
-        name: 'Croatia',
-        mainImage: '/images/croatia/3.jpg',
+        name: 'Andorra',
+        mainImage: '/images/andorra/1.jpg',
         images: [
-            { src: '/images/croatia/1.jpg', position: { x: 430, y: 147 } },
-            { src: '/images/croatia/2.jpg', position: { x: 437, y: 143 } },
-            { src: '/images/croatia/3.jpg', position: { x: 433, y: 145 } },
+            { src: '/images/andorra/2.jpg', position: { x: 400, y: 150 } },
+            { src: '/images/andorra/1.jpg', position: { x: 403, y: 149 } },
         ],
     },
     {
@@ -71,25 +49,6 @@ export const locations: Location[] = [
             { src: '/images/cyprus/3.jpg', position: { x: 476, y: 172 } },
             { src: '/images/cyprus/4.jpg', position: { x: 473, y: 176.5 } },
             { src: '/images/cyprus/1.jpg', position: { x: 479, y: 176 } },
-        ],
-    },
-    {
-        name: 'Egypt',
-        mainImage: '/images/egypt/4.jpg',
-        images: [
-            { src: '/images/egypt/1.jpg', position: { x: 467, y: 195 } },
-            { src: '/images/egypt/2.jpg', position: { x: 466, y: 208 } },
-            { src: '/images/egypt/3.jpg', position: { x: 477, y: 206 } },
-            { src: '/images/egypt/4.jpg', position: { x: 472, y: 200 } },
-        ],
-    },
-    {
-        name: 'France',
-        mainImage: '/images/france/2.jpg',
-        images: [
-            { src: '/images/france/1.jpg', position: { x: 397, y: 135 } },
-            { src: '/images/france/3.jpg', position: { x: 400, y: 142 } },
-            { src: '/images/france/2.jpg', position: { x: 405, y: 138 } },
         ],
     },
     {
@@ -144,12 +103,34 @@ export const locations: Location[] = [
         ],
     },
     {
+        name: 'Croatia',
+        mainImage: '/images/croatia/3.jpg',
+        images: [
+            { src: '/images/croatia/1.jpg', position: { x: 430, y: 147 } },
+            { src: '/images/croatia/2.jpg', position: { x: 437, y: 143 } },
+            { src: '/images/croatia/3.jpg', position: { x: 433, y: 145 } },
+        ],
+    },
+    {
         name: 'Italy',
         mainImage: '/images/italy/3.jpg',
         images: [
             { src: '/images/italy/1.jpg', position: { x: 425, y: 149 } },
             { src: '/images/italy/2.jpg', position: { x: 425, y: 153.5 } },
             { src: '/images/italy/3.jpg', position: { x: 430, y: 155 } },
+        ],
+    },
+    {
+        name: 'Colombia',
+        mainImage: '/images/colombia/1.jpg',
+        images: [
+            { src: '/images/colombia/2.jpg', position: { x: 210, y: 285 } },
+            { src: '/images/colombia/3.jpg', position: { x: 208, y: 280 } },
+            { src: '/images/colombia/4.jpg', position: { x: 202, y: 287 } },
+            { src: '/images/colombia/5.jpg', position: { x: 197, y: 273 } },
+            { src: '/images/colombia/6.jpg', position: { x: 202, y: 274 } },
+            { src: '/images/colombia/7.jpg', position: { x: 196, y: 286 } },
+            { src: '/images/colombia/1.jpg', position: { x: 200, y: 280 } },
         ],
     },
     {
@@ -180,6 +161,15 @@ export const locations: Location[] = [
         ],
     },
     {
+        name: 'Thailand',
+        mainImage: '/images/thailand/2.jpg',
+        images: [
+            { src: '/images/thailand/1.jpg', position: { x: 667, y: 242 } },
+            { src: '/images/thailand/3.jpg', position: { x: 661.5, y: 246 } },
+            { src: '/images/thailand/2.jpg', position: { x: 660, y: 240 } },
+        ],
+    },
+    {
         name: 'Spain',
         mainImage: '/images/spain/1.jpg',
         images: [
@@ -201,12 +191,23 @@ export const locations: Location[] = [
         ],
     },
     {
-        name: 'Thailand',
-        mainImage: '/images/thailand/2.jpg',
+        name: 'Vietnam',
+        mainImage: '/images/vietnam/1.jpg',
         images: [
-            { src: '/images/thailand/1.jpg', position: { x: 667, y: 242 } },
-            { src: '/images/thailand/3.jpg', position: { x: 661.5, y: 246 } },
-            { src: '/images/thailand/2.jpg', position: { x: 660, y: 240 } },
+            { src: '/images/vietnam/2.jpg', position: { x: 671, y: 230 } },
+            { src: '/images/vietnam/3.jpg', position: { x: 676, y: 237 } },
+            { src: '/images/vietnam/4.jpg', position: { x: 682, y: 253 } },
+            { src: '/images/vietnam/1.jpg', position: { x: 680, y: 243 } },
+        ],
+    },
+    {
+        name: 'Egypt',
+        mainImage: '/images/egypt/4.jpg',
+        images: [
+            { src: '/images/egypt/1.jpg', position: { x: 467, y: 195 } },
+            { src: '/images/egypt/2.jpg', position: { x: 466, y: 208 } },
+            { src: '/images/egypt/3.jpg', position: { x: 477, y: 206 } },
+            { src: '/images/egypt/4.jpg', position: { x: 472, y: 200 } },
         ],
     },
     {
@@ -219,13 +220,12 @@ export const locations: Location[] = [
         ],
     },
     {
-        name: 'Vietnam',
-        mainImage: '/images/vietnam/1.jpg',
+        name: 'France',
+        mainImage: '/images/france/2.jpg',
         images: [
-            { src: '/images/vietnam/2.jpg', position: { x: 671, y: 230 } },
-            { src: '/images/vietnam/3.jpg', position: { x: 676, y: 237 } },
-            { src: '/images/vietnam/4.jpg', position: { x: 682, y: 253 } },
-            { src: '/images/vietnam/1.jpg', position: { x: 680, y: 243 } },
+            { src: '/images/france/1.jpg', position: { x: 397, y: 135 } },
+            { src: '/images/france/3.jpg', position: { x: 400, y: 142 } },
+            { src: '/images/france/2.jpg', position: { x: 405, y: 138 } },
         ],
     },
 ];

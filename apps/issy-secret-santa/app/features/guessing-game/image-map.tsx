@@ -23,13 +23,20 @@ type GeoType = {
 
 const pictureOffset = { x: 1, y: 1 };
 const initialZoom = 1.2;
+const wrongGuessHintLimit = 3;
 
-export const ImageMap = () => {
+interface ImageMapProps {
+    onFinish?: () => void;
+}
+
+export const ImageMap = ({ onFinish }: ImageMapProps) => {
     const [currentLocationIndex, setCurrentLocationIndex] = useState(0);
     const [completedLocations, setCompletedLocations] = useState(
         [] as number[],
     );
     const [isWrong, setIsWrong] = useState(false);
+    const [wrongGuesses, setWrongGuesses] = useState(0);
+    const [showHelp, setShowHelp] = useState(false);
     const [confetti, setConfetti] = useState(false);
     const { width, height } = useWindowSize();
     const [selectedCountry, setSelectedCountry] = useState<GeoType | null>(
@@ -63,22 +70,34 @@ export const ImageMap = () => {
             locations[currentLocationIndex].name.toLowerCase()
         ) {
             setCompletedLocations((prev) => [...prev, currentLocationIndex]);
-            setCurrentLocationIndex((prev) => prev + 1);
             setIsWrong(false);
             setSelectedCountry(null);
             setConfetti(true);
+            setWrongGuesses(0);
+            setShowHelp(false);
 
-            if (completedLocations.length === locations.length) {
-                console.log('Game completed!');
+            if (currentLocationIndex === locations.length - 1) {
+                return;
             }
+
+            setCurrentLocationIndex((prev) => prev + 1);
         } else {
             setIsWrong(true);
+            setWrongGuesses((prev) => prev + 1);
         }
     }, [selectedCountry, currentLocationIndex]);
 
+    const gameFinished = completedLocations.length === locations.length;
+
     return (
         <div className="relative flex h-full w-full flex-1 flex-col items-stretch">
-            <div className="absolute left-1/2 top-0 z-10 flex w-11/12 -translate-x-1/2 flex-col items-center rounded-b-2xl bg-background p-4 text-lg">
+            <div
+                className={cn(
+                    'absolute left-1/2 top-0 z-10 flex w-11/12 -translate-x-1/2 flex-col items-center rounded-b-2xl bg-background p-4 text-lg',
+                    gameFinished &&
+                        'pointer-events-none opacity-0 transition-opacity duration-300 ease-in-out',
+                )}
+            >
                 <div className="text-center">
                     Where in the world was this image taken?
                 </div>
@@ -87,7 +106,13 @@ export const ImageMap = () => {
                     className="max-h-52 max-w-full"
                 />
             </div>
-            <div className="absolute bottom-0 left-1/2 z-10 flex w-11/12 -translate-x-1/2 flex-col items-center rounded-t-2xl bg-amber-600 p-5 text-lg text-white">
+            <div
+                className={cn(
+                    'absolute bottom-0 left-1/2 z-10 flex w-11/12 -translate-x-1/2 flex-col items-center rounded-t-2xl bg-amber-600 p-5 text-lg text-white',
+                    gameFinished &&
+                        'pointer-events-none opacity-0 transition-opacity duration-300 ease-in-out',
+                )}
+            >
                 <div className="text-center">
                     Selected country: {selectedCountry?.properties.name}
                 </div>
@@ -103,6 +128,36 @@ export const ImageMap = () => {
                 >
                     Submit
                 </Button>
+                {wrongGuesses >= wrongGuessHintLimit && !showHelp && (
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        className="mt-3"
+                        onClick={() => setShowHelp(true)}
+                    >
+                        I don't know, help!!
+                    </Button>
+                )}
+                {showHelp && (
+                    <div className="text-md mt-3 text-center">
+                        {locations[currentLocationIndex].name}
+                    </div>
+                )}
+            </div>
+            <div
+                className={cn(
+                    'pointer-events-none absolute bottom-0 left-1/2 z-20 flex -translate-x-1/2 items-center justify-center bg-background opacity-0 transition-opacity duration-300 ease-in-out',
+                    'rounded-t-xl p-5',
+                    gameFinished && 'opacity-1 pointer-events-auto',
+                )}
+            >
+                <div className="flex flex-col items-center">
+                    <div className="text-4xl">Congratulations!</div>
+                    <div className="text-xl">You have completed the game!</div>
+                    <Button className="mt-5" onClick={onFinish}>
+                        Continue
+                    </Button>
+                </div>
             </div>
             <div className="h-20 w-full bg-sky-200" />
             <ComposableMap className="w-full flex-1 bg-sky-200">
@@ -144,9 +199,8 @@ export const ImageMap = () => {
                             ))
                         }
                     </Geographies>
-                    {locations
-                        .flatMap((location) => location.images)
-                        .map((image) => (
+                    {locations.flatMap((location, index) => {
+                        return location.images.map((image) => (
                             <image
                                 href={image.src}
                                 key={image.src}
@@ -157,12 +211,15 @@ export const ImageMap = () => {
                                 style={{ transformBox: 'fill-box' }}
                                 className={cn(
                                     'peer origin-center transition-all duration-300 ease-in-out hover:scale-[5] active:scale-[5] peer-hover:pointer-events-none peer-hover:opacity-0 peer-active:pointer-events-none peer-active:opacity-0',
+                                    !completedLocations.includes(index) &&
+                                        'pointer-events-none opacity-0',
                                     zoom < 5
                                         ? `scale-[var(--image-scale)] hover:scale-[calc(var(--image-scale)*10)] active:scale-[calc(var(--image-scale)*10)]`
                                         : '',
                                 )}
                             />
-                        ))}
+                        ));
+                    })}
                 </ZoomableGroup>
             </ComposableMap>
             {confetti && (
