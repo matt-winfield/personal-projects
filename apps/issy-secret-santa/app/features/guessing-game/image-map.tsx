@@ -93,7 +93,7 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
     const gameFinished = completedLocations.length === locations.length;
 
     return (
-        <div className="relative flex h-full w-full flex-1 flex-col items-stretch">
+        <div className="relative flex h-full w-full flex-1 flex-col items-stretch [user-select:none]">
             <div
                 className={cn(
                     'text-md absolute left-1/2 top-0 z-10 flex w-11/12 -translate-x-1/2 flex-col items-center rounded-b-2xl bg-background px-4 pb-2 pt-1',
