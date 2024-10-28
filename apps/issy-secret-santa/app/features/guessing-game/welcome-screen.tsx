@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import Confetti from 'react-confetti';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useWindowSize } from '@uidotdev/usehooks';
 
 interface WelcomeScreenProps {
     onFinish?: () => void;
@@ -9,10 +10,17 @@ interface WelcomeScreenProps {
 
 export const WelcomeScreen = ({ onFinish }: WelcomeScreenProps) => {
     const [screen, setScreen] = useState(0);
+    const { width, height } = useWindowSize();
 
     return (
         <div className="flex h-full w-full flex-col items-center justify-center bg-red-600 p-4 text-white">
-            <Confetti colors={['#FFF']} friction={1} gravity={0.01} />
+            <Confetti
+                colors={['#FFF']}
+                friction={1}
+                gravity={0.01}
+                width={width ?? 0}
+                height={height ?? 0}
+            />
             <AnimatePresence>
                 {screen === 0 && (
                     <>
