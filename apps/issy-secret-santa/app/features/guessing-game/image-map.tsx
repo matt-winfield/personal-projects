@@ -219,7 +219,7 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
                                     !completedLocations.includes(index) &&
                                         'pointer-events-none opacity-0',
                                     zoom < 20
-                                        ? `scale-[var(--image-scale)] hover:scale-[calc(var(--image-scale)*8)] active:scale-[calc(var(--image-scale)*8)]`
+                                        ? `scale-[var(--image-scale)] hover:scale-[calc(var(--image-scale)*2)] active:scale-[calc(var(--image-scale)*2)]`
                                         : '',
                                 )}
                             />
