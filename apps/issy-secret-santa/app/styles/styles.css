@@ -1,3 +1,9 @@
 :root {
     --image-scale: 5;
 }
+
+:root,
+html,
+body {
+    overscroll-behavior-y: none;
+}
