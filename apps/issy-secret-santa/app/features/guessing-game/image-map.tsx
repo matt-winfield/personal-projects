@@ -181,8 +181,6 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
                                     id={geo.rsmKey}
                                     style={{
                                         default: {
-                                            stroke: '#88F',
-                                            strokeWidth: 0.3,
                                             outline: 'none',
                                             fill: getCountryFill(
                                                 selectedCountry,
