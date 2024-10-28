@@ -54,7 +54,7 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
         const root = document.querySelector(':root') as HTMLElement;
         root.style.setProperty(
             '--image-scale',
-            Math.min(20 / zoom, 10).toString(),
+            Math.min(20 / zoom, 8).toString(),
         );
     };
 
