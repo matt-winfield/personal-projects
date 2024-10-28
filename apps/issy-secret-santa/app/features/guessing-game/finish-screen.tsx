@@ -13,6 +13,7 @@ export const FinishScreen = () => {
                 gravity={0.01}
                 width={width ?? 0}
                 height={height ?? 0}
+                initialVelocityY={{ min: 0, max: 0.2 }}
             />
             <motion.div
                 className="text-center text-3xl"
