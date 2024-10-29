@@ -1,6 +1,7 @@
 import { FinishScreen } from '@/features/guessing-game/finish-screen';
 import { ImageMap } from '@/features/guessing-game/image-map';
 import { WelcomeScreen } from '@/features/guessing-game/welcome-screen';
+import { LinksFunction } from '@remix-run/cloudflare';
 import { useState } from 'react';
 
 export default function Index() {
@@ -14,3 +15,7 @@ export default function Index() {
         </main>
     );
 }
+
+export const links: LinksFunction = () => {
+    return [{ rel: 'preload', as: 'image', href: '/images/dancing-santa.gif' }];
+};

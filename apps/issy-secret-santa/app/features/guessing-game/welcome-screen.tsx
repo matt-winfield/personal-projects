@@ -59,6 +59,14 @@ export const WelcomeScreen = ({ onFinish }: WelcomeScreenProps) => {
                         >
                             Merry Christmas Issy!
                         </motion.div>
+                        <motion.img
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="mt-2"
+                            src="/images/dancing-santa.gif"
+                            key="santa"
+                        />
                         <MotionButton
                             onClick={() => setScreen(1)}
                             className="mt-4"
