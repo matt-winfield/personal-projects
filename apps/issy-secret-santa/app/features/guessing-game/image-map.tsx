@@ -10,6 +10,8 @@ import {
 } from 'react-simple-maps';
 import { useWindowSize } from '@uidotdev/usehooks';
 import Confetti from 'react-confetti';
+import * as reactLoaderSpinner from 'react-loader-spinner';
+const { Bars } = reactLoaderSpinner;
 
 export const geoUrl = '/countries-50m.json';
 
@@ -43,6 +45,7 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
         null,
     );
     const [zoom, setZoom] = useState(initialZoom);
+    const [loading, setLoading] = useState(true);
 
     const onMoveEnd = ({
         zoom,
@@ -171,7 +174,16 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
                     maxZoom={40}
                     onMoveEnd={onMoveEnd}
                 >
-                    <Geographies geography={geoUrl}>
+                    <Geographies
+                        geography={geoUrl}
+                        parseGeographies={(geo) => {
+                            if (geo.length > 0) {
+                                setLoading(false);
+                                console.log('Loaded!', geo);
+                            }
+                            return geo;
+                        }}
+                    >
                         {({ geographies }) =>
                             geographies.map((geo: GeoType) => (
                                 <Geography
@@ -202,29 +214,34 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
                             ))
                         }
                     </Geographies>
-                    {locations.flatMap((location, index) => {
-                        return location.images.map((image) => (
-                            <image
-                                href={image.src}
-                                key={image.src}
-                                x={image.position.x + pictureOffset.x}
-                                y={image.position.y + pictureOffset.y}
-                                width={image.width ?? 5}
-                                height={image.height ?? 5}
-                                style={{ transformBox: 'fill-box' }}
-                                className={cn(
-                                    'peer origin-center transition-all duration-300 ease-in-out hover:scale-[5] active:scale-[5] peer-hover:pointer-events-none peer-hover:opacity-0 peer-active:pointer-events-none peer-active:opacity-0',
-                                    !completedLocations.includes(index) &&
-                                        'pointer-events-none opacity-0',
-                                    zoom < 20
-                                        ? `scale-[var(--image-scale)] hover:scale-[max(calc(var(--image-scale)*2),5)] active:scale-[max(calc(var(--image-scale)*2))]`
-                                        : '',
-                                )}
-                            />
-                        ));
-                    })}
+                    {!loading &&
+                        locations.flatMap((location, index) => {
+                            return location.images.map((image) => (
+                                <image
+                                    href={image.src}
+                                    key={image.src}
+                                    x={image.position.x + pictureOffset.x}
+                                    y={image.position.y + pictureOffset.y}
+                                    width={image.width ?? 5}
+                                    height={image.height ?? 5}
+                                    style={{ transformBox: 'fill-box' }}
+                                    className={cn(
+                                        'peer origin-center transition-all duration-300 ease-in-out hover:scale-[5] active:scale-[5] peer-hover:pointer-events-none peer-hover:opacity-0 peer-active:pointer-events-none peer-active:opacity-0',
+                                        !completedLocations.includes(index) &&
+                                            'pointer-events-none opacity-0',
+                                        zoom < 20
+                                            ? `scale-[var(--image-scale)] hover:scale-[max(calc(var(--image-scale)*2),5)] active:scale-[max(calc(var(--image-scale)*2))]`
+                                            : '',
+                                    )}
+                                />
+                            ));
+                        })}
                 </ZoomableGroup>
             </ComposableMap>
+            <Bars
+                wrapperClass="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                visible={loading}
+            />
             {confetti && (
                 <Confetti
                     className="pointer-events-none fixed left-0 top-0 z-50"

@@ -1,12 +1,10 @@
 import { FinishScreen } from '@/features/guessing-game/finish-screen';
 import { ImageMap } from '@/features/guessing-game/image-map';
-import { usePreloadResources } from '@/features/guessing-game/usePreloadResources';
 import { WelcomeScreen } from '@/features/guessing-game/welcome-screen';
 import { useState } from 'react';
 
 export default function Index() {
     const [screen, setScreen] = useState(0);
-    usePreloadResources();
 
     return (
         <main className="flex h-full flex-col items-center">

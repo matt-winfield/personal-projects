@@ -1,21 +1,21 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { geoUrl } from './image-map';
 import { locations } from '../locations/locations';
 
 async function preloadResources() {
     await fetch(geoUrl);
 
-    // Preload all images
-    for (const location of locations) {
-        for (const image of location.images) {
-            const img = new Image();
-            img.src = image.src;
-        }
-    }
+    // Preload the first main image
+    const img = new Image();
+    img.src = locations[0].mainImage;
 }
 
 export const usePreloadResources = () => {
+    const [mapDataLoaded, setMapDataLoaded] = useState(false);
+
     useEffect(() => {
-        preloadResources();
+        preloadResources().then(() => setMapDataLoaded(true));
     }, []);
+
+    return mapDataLoaded;
 };
