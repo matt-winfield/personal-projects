@@ -42,6 +42,27 @@ const countryFillLayerProps = {
     },
 };
 
+// Ecuador doesn't have an outline on the map by default, but it's important for the game!
+const ecuadorOutlineLayerProps = {
+    id: 'equador-outline',
+    type: 'line',
+    paint: {
+        'line-color': 'hsl(248,1%,41%)',
+        'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.4, 4, 1],
+        'line-width': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            3,
+            1,
+            5,
+            1.2,
+            12,
+            3,
+        ],
+    },
+};
+
 const selectedCountryFillLayerProps = {
     id: 'selected-country-fill',
     type: 'fill',
@@ -262,6 +283,10 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
                 >
                     <Source id="countries" type="geojson" data={geoUrl}>
                         <Layer {...countryFillLayerProps} />
+                        <Layer
+                            {...ecuadorOutlineLayerProps}
+                            filter={['==', 'name', 'Ecuador']}
+                        />
                         <Layer
                             {...selectedCountryFillLayerProps}
                             filter={['==', 'name', selectedCountry?.name ?? '']}
