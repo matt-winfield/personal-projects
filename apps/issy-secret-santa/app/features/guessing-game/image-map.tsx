@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Location, locations } from '@/features/locations/locations';
 import { cn } from '@/utils/misc';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
     ComposableMap,
     Geographies,
@@ -11,6 +11,7 @@ import {
 import { useWindowSize } from '@uidotdev/usehooks';
 import Confetti from 'react-confetti';
 import * as reactLoaderSpinner from 'react-loader-spinner';
+import { preloadImages } from './finish-screen';
 const { Bars } = reactLoaderSpinner;
 
 export const geoUrl = '/countries-50m.json';
@@ -94,6 +95,12 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
     }, [selectedCountry, currentLocationIndex]);
 
     const gameFinished = completedLocations.length === locations.length;
+
+    useEffect(() => {
+        if (gameFinished) {
+            preloadImages();
+        }
+    }, [gameFinished]);
 
     return (
         <div className="relative flex h-full w-full flex-1 flex-col items-stretch [user-select:none]">

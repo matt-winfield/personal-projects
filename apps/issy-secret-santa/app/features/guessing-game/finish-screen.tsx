@@ -6,6 +6,18 @@ const images = Array.from({ length: 6 }).map(
     (_, i) => `/images/final/${i + 1}.jpg`,
 );
 
+export const preloadImages = (index: number = 0) => {
+    const img = new Image();
+    img.src = images[index];
+    const onComplete = () => {
+        if (index < images.length - 1) {
+            preloadImages(index + 1);
+        }
+    };
+    img.onload = onComplete;
+    img.onerror = onComplete;
+};
+
 export const FinishScreen = () => {
     const { width, height } = useWindowSize();
 
@@ -68,6 +80,14 @@ export const FinishScreen = () => {
                         );
                     })}
                 </motion.div>
+            </motion.div>
+            <motion.div
+                className="mt-3 text-center text-2xl"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+            >
+                From Santa 🎅
             </motion.div>
         </div>
     );
