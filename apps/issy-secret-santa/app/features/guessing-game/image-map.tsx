@@ -13,6 +13,7 @@ import Confetti from 'react-confetti';
 import * as reactLoaderSpinner from 'react-loader-spinner';
 import { preloadImages } from './finish-screen';
 const { Bars } = reactLoaderSpinner;
+import type { Feature } from 'geojson';
 
 export const geoUrl = '/countries-50m.json';
 
@@ -48,19 +49,17 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
     const [zoom, setZoom] = useState(initialZoom);
     const [loading, setLoading] = useState(true);
 
-    const onMoveEnd = ({
-        zoom,
-    }: {
-        coordinates: [number, number];
-        zoom: number;
-    }) => {
-        setZoom(zoom);
-        const root = document.querySelector(':root') as HTMLElement;
-        root.style.setProperty(
-            '--image-scale',
-            Math.min(20 / zoom, 8).toString(),
-        );
-    };
+    const onMoveEnd = useCallback(
+        ({ zoom }: { coordinates: [number, number]; zoom: number }) => {
+            setZoom(zoom);
+            const root = document.querySelector(':root') as HTMLElement;
+            root.style.setProperty(
+                '--image-scale',
+                Math.min(20 / zoom, 8).toString(),
+            );
+        },
+        [],
+    );
 
     const onCountryClick = useCallback((geo: GeoType) => {
         setSelectedCountry(geo);
@@ -95,6 +94,13 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
     }, [selectedCountry, currentLocationIndex]);
 
     const gameFinished = completedLocations.length === locations.length;
+
+    const parseGeographies = useCallback((geo: Array<Feature>) => {
+        if (geo.length > 0) {
+            setLoading(false);
+        }
+        return geo;
+    }, []);
 
     useEffect(() => {
         if (gameFinished) {
@@ -183,13 +189,7 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
                 >
                     <Geographies
                         geography={geoUrl}
-                        parseGeographies={(geo) => {
-                            if (geo.length > 0) {
-                                setLoading(false);
-                                console.log('Loaded!', geo);
-                            }
-                            return geo;
-                        }}
+                        parseGeographies={parseGeographies}
                     >
                         {({ geographies }) =>
                             geographies.map((geo: GeoType) => (
