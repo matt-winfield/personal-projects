@@ -207,6 +207,8 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
                                                 completedLocations,
                                                 locations,
                                             ),
+                                            stroke: 'lightblue',
+                                            strokeWidth: 0.1,
                                         },
                                         hover: {
                                             fill: '#F53',
