@@ -184,7 +184,7 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
             <ComposableMap className="w-full flex-1 bg-sky-200">
                 <ZoomableGroup
                     zoom={initialZoom}
-                    maxZoom={40}
+                    maxZoom={50}
                     onMoveEnd={onMoveEnd}
                 >
                     <Geographies
@@ -207,8 +207,6 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
                                                 completedLocations,
                                                 locations,
                                             ),
-                                            stroke: 'lightblue',
-                                            strokeWidth: 0.1,
                                         },
                                         hover: {
                                             fill: '#F53',
