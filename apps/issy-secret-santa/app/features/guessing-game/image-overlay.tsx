@@ -11,6 +11,8 @@ interface ImageOverlayProps {
     completedLocations: string[];
 }
 
+const originalImageScaleFactor = 100;
+
 export const ImageOverlay = ({ completedLocations }: ImageOverlayProps) => {
     const [activeImage, setActiveImage] = useState<string | null>();
     const [locations, setLocations] = useState(locationsOriginal);
@@ -148,7 +150,7 @@ const Image = ({
             if (!ref.current) return;
             ref.current.style.left = `${position.x}px`;
             ref.current.style.top = `${position.y}px`;
-            ref.current.style.transform = `scale(${Math.pow(2, instance.getZoom()) / 1.5})`;
+            ref.current.style.transform = `scale(${Math.pow(2, instance.getZoom()) / (1.5 * originalImageScaleFactor)})`;
         };
 
         const clickListener = (e: MapMouseEvent) => {
@@ -176,16 +178,23 @@ const Image = ({
         };
     }, [instance, lat, long, active, src]);
 
+    // Hack for iOS Mobile Safari to prevent image from being blurry
+    // On Chrome and Firefox, the full image resolution is used when scaled up regardless of the original size
+    // On iOS Mobile Safari, the image is pixelated when scaled up if the original size is small
+    // So we scale up the image by a large factor, and then reverse this as part of the scale transform
+    const scaledWidth = (width ?? 5) * originalImageScaleFactor;
+    const scaledHeight = (height ?? 5) * originalImageScaleFactor;
+
     return (
         <img
             src={src}
             ref={ref}
             style={{
-                maxWidth: `${width ?? 5}px`,
-                maxHeight: `${height ?? 5}px`,
+                maxWidth: `${scaledWidth}px`,
+                maxHeight: `${scaledHeight}px`,
             }}
             className={cn(
-                'pointer-events-none absolute left-0 top-0 opacity-0 transition-opacity duration-300',
+                'pointer-events-none absolute origin-top-left opacity-0 transition-opacity duration-300',
                 active && 'border border-red-500',
                 completed && 'opacity-100',
             )}
