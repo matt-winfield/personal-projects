@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { ClientOnly } from 'remix-utils/client-only';
 
 export default function Index() {
-    const [screen, setScreen] = useState(0);
+    const [screen, setScreen] = useState(1);
 
     return (
         <main className="flex h-full flex-col items-center">

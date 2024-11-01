@@ -31,7 +31,6 @@ type GeoType = {
     region_wb: string;
 };
 
-const pictureOffset = { x: 1, y: 1 };
 const initialZoom = 1.2;
 const wrongGuessHintLimit = 3;
 
@@ -108,23 +107,10 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
     const [selectedCountry, setSelectedCountry] = useState<GeoType | null>(
         null,
     );
-    const [zoom, setZoom] = useState(initialZoom);
     const [loading, setLoading] = useState(true);
     const [hoveredCountry, setHoveredCountry] = useState<GeoType | null>(null);
 
     const map = useRef<MapRef>(null);
-
-    const onMoveEnd = useCallback(
-        ({ zoom }: { coordinates: [number, number]; zoom: number }) => {
-            setZoom(zoom);
-            const root = document.querySelector(':root') as HTMLElement;
-            root.style.setProperty(
-                '--image-scale',
-                Math.min(20 / zoom, 8).toString(),
-            );
-        },
-        [],
-    );
 
     const getCountryFromMouseEvent = (e: MapLayerMouseEvent) => {
         if (!map.current) return;
@@ -331,25 +317,4 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
             )}
         </div>
     );
-};
-
-const getCountryFill = (
-    selectedCountry: GeoType | null,
-    geo: GeoType,
-    completedLocations: number[],
-    locations: Location[],
-) => {
-    if (selectedCountry?.iso_a2 === geo.iso_a2) {
-        return '#F53';
-    }
-
-    if (
-        completedLocations.includes(
-            locations.findIndex((location) => location.name === geo.name),
-        )
-    ) {
-        return '#0F0';
-    }
-
-    return '#112211';
 };

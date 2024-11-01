@@ -19,43 +19,45 @@ export const locations = [
             {
                 src: '/images/albania/1.jpg',
                 position: {
-                    longitude: 19.8,
-                    latitude: 41.1,
+                    longitude: 19.375402897109268,
+                    latitude: 41.270368413201425,
                 },
+                width: 3,
+                height: 3,
             },
             {
                 src: '/images/albania/2.jpg',
                 position: {
-                    longitude: 18.450000000000017,
-                    latitude: 41.4,
+                    longitude: 17.588287118429378,
+                    latitude: 41.63126681143717,
                 },
             },
             {
                 src: '/images/albania/4.jpg',
                 position: {
-                    longitude: 20.25,
-                    latitude: 42,
+                    longitude: 19.65327937664668,
+                    latitude: 43.30013411779984,
                 },
             },
             {
                 src: '/images/albania/5.jpg',
                 position: {
-                    longitude: 21.149999999999977,
-                    latitude: 40.5,
+                    longitude: 21.421692520645877,
+                    latitude: 40.69589918347151,
                 },
             },
             {
                 src: '/images/albania/6.jpg',
                 position: {
-                    longitude: 21.600000000000023,
-                    latitude: 42.3,
+                    longitude: 22.02533261932777,
+                    latitude: 43.01516636919399,
                 },
             },
             {
                 src: '/images/albania/3.jpg',
                 position: {
-                    longitude: 19.35,
-                    latitude: 39.9,
+                    longitude: 18.907433254435574,
+                    latitude: 39.44797050658869,
                 },
             },
         ],
@@ -67,22 +69,22 @@ export const locations = [
             {
                 src: '/images/costa-rica/1.jpg',
                 position: {
-                    longitude: -84.9,
-                    latitude: 9.3,
+                    longitude: -84.26619179812998,
+                    latitude: 9.128992906171533,
                 },
             },
             {
                 src: '/images/costa-rica/3.jpg',
                 position: {
-                    longitude: -86,
-                    latitude: 10.8,
+                    longitude: -85.72737796622414,
+                    latitude: 10.29369357363656,
                 },
             },
             {
                 src: '/images/costa-rica/2.jpg',
                 position: {
-                    longitude: -84,
-                    latitude: 10.5,
+                    longitude: -83.64359943086806,
+                    latitude: 10.568604797505287,
                 },
             },
         ],
@@ -94,15 +96,15 @@ export const locations = [
             {
                 src: '/images/andorra/2.jpg',
                 position: {
-                    longitude: 0,
-                    latitude: 45,
+                    longitude: 0.6453880308158944,
+                    latitude: 42.20615282834322,
                 },
             },
             {
                 src: '/images/andorra/1.jpg',
                 position: {
-                    longitude: 1.3500000000000227,
-                    latitude: 45.300000000000004,
+                    longitude: 2.279033370681077,
+                    latitude: 43.11304438569124,
                 },
             },
         ],
@@ -114,29 +116,29 @@ export const locations = [
             {
                 src: '/images/cyprus/2.jpg',
                 position: {
-                    longitude: 33.75,
-                    latitude: 36,
+                    longitude: 32.85146267410434,
+                    latitude: 33.501074375740345,
                 },
             },
             {
                 src: '/images/cyprus/3.jpg',
                 position: {
-                    longitude: 34.19999999999999,
-                    latitude: 38.4,
+                    longitude: 32.762393907253966,
+                    latitude: 36.532831862055446,
                 },
             },
             {
                 src: '/images/cyprus/4.jpg',
                 position: {
-                    longitude: 32.85000000000002,
-                    latitude: 37.05,
+                    longitude: 31.56590681388269,
+                    latitude: 35.03258910571323,
                 },
             },
             {
                 src: '/images/cyprus/1.jpg',
                 position: {
-                    longitude: 35.55000000000001,
-                    latitude: 37.2,
+                    longitude: 33.766470788222904,
+                    latitude: 34.95816579157682,
                 },
             },
         ],
@@ -148,43 +150,43 @@ export const locations = [
             {
                 src: '/images/galapagos-islands/1.jpg',
                 position: {
-                    longitude: -109.35,
-                    latitude: 1.5,
+                    longitude: -90.23391040894165,
+                    latitude: 0.6345849214916512,
                 },
             },
             {
                 src: '/images/galapagos-islands/2.jpg',
                 position: {
-                    longitude: -108.89999999999999,
-                    latitude: -1.2000000000000028,
+                    longitude: -90.62169115446648,
+                    latitude: -1.9641800461186136,
                 },
             },
             {
                 src: '/images/galapagos-islands/4.jpg',
                 position: {
-                    longitude: -106.2,
-                    latitude: 1.2000000000000028,
+                    longitude: -88.01304982340919,
+                    latitude: 0.439595888895596,
                 },
             },
             {
                 src: '/images/galapagos-islands/5.jpg',
                 position: {
-                    longitude: -105.66000000000001,
-                    latitude: -0.5999999999999943,
+                    longitude: -87.32858673418148,
+                    latitude: -1.7136390852935932,
                 },
             },
             {
                 src: '/images/galapagos-islands/6.jpg',
                 position: {
-                    longitude: -103.95,
-                    latitude: 0.29999999999999716,
+                    longitude: -86.35986324346312,
+                    latitude: -0.4294310779736321,
                 },
             },
             {
                 src: '/images/galapagos-islands/3.jpg',
                 position: {
-                    longitude: -108,
-                    latitude: 0,
+                    longitude: -88.97809923272955,
+                    latitude: -0.8707769357583146,
                 },
             },
         ],
@@ -196,22 +198,22 @@ export const locations = [
             {
                 src: '/images/greece/1.jpg',
                 position: {
-                    longitude: 22.94999999999999,
-                    latitude: 42.3,
+                    longitude: 23.847112815980097,
+                    latitude: 40.07417159597861,
                 },
             },
             {
                 src: '/images/greece/3.jpg',
                 position: {
-                    longitude: 23.62500000000003,
-                    latitude: 40.49999999999999,
+                    longitude: 24.471072339551483,
+                    latitude: 38.328264333155886,
                 },
             },
             {
                 src: '/images/greece/2.jpg',
                 position: {
-                    longitude: 21.149999999999977,
-                    latitude: 41.4,
+                    longitude: 21.31661030376108,
+                    latitude: 37.63152662439032,
                 },
             },
         ],
@@ -223,43 +225,43 @@ export const locations = [
             {
                 src: '/images/indonesia/1.jpg',
                 position: {
-                    longitude: 134.10000000000002,
-                    latitude: -7.5,
+                    longitude: 113.23034450472375,
+                    latitude: -7.992218978536542,
                 },
             },
             {
                 src: '/images/indonesia/2.jpg',
                 position: {
-                    longitude: 132.75,
-                    latitude: -7.200000000000003,
+                    longitude: 111.30939557924103,
+                    latitude: -6.855967570392778,
                 },
             },
             {
                 src: '/images/indonesia/3.jpg',
                 position: {
-                    longitude: 130.95,
-                    latitude: -7.799999999999997,
+                    longitude: 109.58875989443942,
+                    latitude: -8.406174556667082,
                 },
             },
             {
                 src: '/images/indonesia/4.jpg',
                 position: {
-                    longitude: 136.8,
-                    latitude: -7.049999999999997,
+                    longitude: 115.87735023618353,
+                    latitude: -7.1942878634694125,
                 },
             },
             {
                 src: '/images/indonesia/6.jpg',
                 position: {
-                    longitude: 137.25,
-                    latitude: -8.700000000000003,
+                    longitude: 116.66573985441164,
+                    latitude: -9.299008802145508,
                 },
             },
             {
                 src: '/images/indonesia/5.jpg',
                 position: {
-                    longitude: 135,
-                    latitude: -9.000000000000014,
+                    longitude: 114.47016665419062,
+                    latitude: -9.786494942246733,
                 },
             },
         ],
@@ -271,22 +273,22 @@ export const locations = [
             {
                 src: '/images/croatia/1.jpg',
                 position: {
-                    longitude: 13.5,
-                    latitude: 45.9,
+                    longitude: 14.656037924347402,
+                    latitude: 44.085944110133426,
                 },
             },
             {
                 src: '/images/croatia/2.jpg',
                 position: {
-                    longitude: 16.650000000000006,
-                    latitude: 47.1,
+                    longitude: 17.50892971955085,
+                    latitude: 45.418996109893385,
                 },
             },
             {
                 src: '/images/croatia/3.jpg',
                 position: {
-                    longitude: 14.849999999999994,
-                    latitude: 46.5,
+                    longitude: 15.643618796046155,
+                    latitude: 44.974111603100795,
                 },
             },
         ],
@@ -298,50 +300,50 @@ export const locations = [
             {
                 src: '/images/colombia/2.jpg',
                 position: {
-                    longitude: -85.5,
-                    latitude: 4.5,
+                    longitude: -70.51271281349845,
+                    latitude: 2.771928182056854,
                 },
             },
             {
                 src: '/images/colombia/3.jpg',
                 position: {
-                    longitude: -86.39999999999999,
-                    latitude: 6,
+                    longitude: -71.69165063730502,
+                    latitude: 4.575630503955736,
                 },
             },
             {
                 src: '/images/colombia/4.jpg',
                 position: {
-                    longitude: -89.1,
-                    latitude: 3.9000000000000057,
+                    longitude: -73.11809897628021,
+                    latitude: 1.9133607162840605,
                 },
             },
             {
                 src: '/images/colombia/5.jpg',
                 position: {
-                    longitude: -91.35,
-                    latitude: 8.099999999999994,
+                    longitude: -75.99396256821538,
+                    latitude: 7.089662176225616,
                 },
             },
             {
                 src: '/images/colombia/6.jpg',
                 position: {
-                    longitude: -89.1,
-                    latitude: 7.799999999999997,
+                    longitude: -74.46783530416727,
+                    latitude: 6.459574552680209,
                 },
             },
             {
                 src: '/images/colombia/7.jpg',
                 position: {
-                    longitude: -91.8,
-                    latitude: 4.200000000000003,
+                    longitude: -75.71733439352293,
+                    latitude: 3.2467708103911406,
                 },
             },
             {
                 src: '/images/colombia/1.jpg',
                 position: {
-                    longitude: -90,
-                    latitude: 6,
+                    longitude: -74.20575025154446,
+                    latitude: 4.838133510984591,
                 },
             },
         ],
@@ -353,22 +355,22 @@ export const locations = [
             {
                 src: '/images/italy/1.jpg',
                 position: {
-                    longitude: 11.25,
-                    latitude: 45.300000000000004,
+                    longitude: 12.472686711885132,
+                    latitude: 43.25900774949727,
                 },
             },
             {
                 src: '/images/italy/2.jpg',
                 position: {
-                    longitude: 11.25,
-                    latitude: 43.949999999999996,
+                    longitude: 11.72587131491332,
+                    latitude: 41.788213897522894,
                 },
             },
             {
                 src: '/images/italy/3.jpg',
                 position: {
-                    longitude: 13.5,
-                    latitude: 43.49999999999999,
+                    longitude: 14.132112758967054,
+                    latitude: 41.659070283032094,
                 },
             },
         ],
@@ -380,29 +382,29 @@ export const locations = [
             {
                 src: '/images/morocco/1.jpg',
                 position: {
-                    longitude: -6.75,
-                    latitude: 36,
+                    longitude: -5.145660403962779,
+                    latitude: 33.66678496924274,
                 },
             },
             {
                 src: '/images/morocco/3.jpg',
                 position: {
-                    longitude: -9.900000000000006,
-                    latitude: 33.3,
+                    longitude: -6.744973979584245,
+                    latitude: 31.611851211175463,
                 },
             },
             {
                 src: '/images/morocco/4.jpg',
                 position: {
-                    longitude: -6.300000000000011,
-                    latitude: 34.800000000000004,
+                    longitude: -4.304953535746392,
+                    latitude: 32.603040384996845,
                 },
             },
             {
                 src: '/images/morocco/2.jpg',
                 position: {
-                    longitude: -9,
-                    latitude: 34.5,
+                    longitude: -6.313775802363608,
+                    latitude: 32.62335356373549,
                 },
             },
         ],
@@ -414,22 +416,22 @@ export const locations = [
             {
                 src: '/images/panama/1.jpg',
                 position: {
-                    longitude: -95.4,
-                    latitude: 11.099999999999994,
+                    longitude: -78.28512857189953,
+                    latitude: 9.506386510285978,
                 },
             },
             {
                 src: '/images/panama/3.jpg',
                 position: {
-                    longitude: -96.3,
-                    latitude: 9.150000000000006,
+                    longitude: -79.82703766384796,
+                    latitude: 7.09749053857972,
                 },
             },
             {
                 src: '/images/panama/2.jpg',
                 position: {
-                    longitude: -97.64999999999999,
-                    latitude: 10.5,
+                    longitude: -81.2753019091698,
+                    latitude: 9.182392789901684,
                 },
             },
         ],
@@ -441,15 +443,15 @@ export const locations = [
             {
                 src: '/images/poland/2.jpg',
                 position: {
-                    longitude: 18.00000000000003,
-                    latitude: 52.8,
+                    longitude: 20.550676056797727,
+                    latitude: 52.977439734608225,
                 },
             },
             {
                 src: '/images/poland/1.jpg',
                 position: {
-                    longitude: 15.749999999999972,
-                    latitude: 52.5,
+                    longitude: 18.149927489576413,
+                    latitude: 51.841829224741986,
                 },
             },
         ],
@@ -461,22 +463,22 @@ export const locations = [
             {
                 src: '/images/thailand/1.jpg',
                 position: {
-                    longitude: 120.14999999999998,
-                    latitude: 17.400000000000006,
+                    longitude: 100.59883950091074,
+                    latitude: 13.83932486886357,
                 },
             },
             {
                 src: '/images/thailand/3.jpg',
                 position: {
-                    longitude: 117.67500000000001,
-                    latitude: 16.200000000000003,
+                    longitude: 101.8944388169478,
+                    latitude: 15.218870236051544,
                 },
             },
             {
                 src: '/images/thailand/2.jpg',
                 position: {
-                    longitude: 117,
-                    latitude: 18,
+                    longitude: 99.8516981651128,
+                    latitude: 15.452098780809038,
                 },
             },
         ],
@@ -488,29 +490,29 @@ export const locations = [
             {
                 src: '/images/spain/2.jpg',
                 position: {
-                    longitude: -6.75,
-                    latitude: 43.199999999999996,
+                    longitude: -5.719406776746524,
+                    latitude: 42.27699081031167,
                 },
             },
             {
                 src: '/images/spain/3.jpg',
                 position: {
-                    longitude: -4.049999999999983,
-                    latitude: 44.4,
+                    longitude: -1.6854143495695553,
+                    latitude: 42.29629229544187,
                 },
             },
             {
                 src: '/images/spain/4.jpg',
                 position: {
-                    longitude: -6.75,
-                    latitude: 41.4,
+                    longitude: -5.34490949900524,
+                    latitude: 40.76839493658002,
                 },
             },
             {
                 src: '/images/spain/5.jpg',
                 position: {
-                    longitude: -4.724999999999994,
-                    latitude: 40.800000000000004,
+                    longitude: -2.3729164462458243,
+                    latitude: 39.53303313914165,
                 },
                 width: 7,
                 height: 7,
@@ -518,8 +520,8 @@ export const locations = [
             {
                 src: '/images/spain/1.jpg',
                 position: {
-                    longitude: -4.5,
-                    latitude: 42.6,
+                    longitude: -3.4715167353780316,
+                    latitude: 41.32268596662857,
                 },
                 width: 6,
                 height: 6,
@@ -533,29 +535,29 @@ export const locations = [
             {
                 src: '/images/vietnam/2.jpg',
                 position: {
-                    longitude: 121.94999999999999,
-                    latitude: 21,
+                    longitude: 105.55340630431243,
+                    latitude: 18.66778735704203,
                 },
             },
             {
                 src: '/images/vietnam/3.jpg',
                 position: {
-                    longitude: 124.19999999999999,
-                    latitude: 18.89999999999999,
+                    longitude: 107.05851105509765,
+                    latitude: 16.69386581497183,
                 },
             },
             {
                 src: '/images/vietnam/4.jpg',
                 position: {
-                    longitude: 126.90000000000003,
-                    latitude: 14.099999999999994,
+                    longitude: 107.71718336170886,
+                    latitude: 11.25712798834111,
                 },
             },
             {
                 src: '/images/vietnam/1.jpg',
                 position: {
-                    longitude: 126,
-                    latitude: 17.099999999999994,
+                    longitude: 108.4445718924456,
+                    latitude: 14.63511997101159,
                 },
             },
         ],
@@ -567,29 +569,29 @@ export const locations = [
             {
                 src: '/images/egypt/1.jpg',
                 position: {
-                    longitude: 30.150000000000006,
-                    latitude: 31.5,
+                    longitude: 27.22672930460456,
+                    latitude: 29.107236986826607,
                 },
             },
             {
                 src: '/images/egypt/2.jpg',
                 position: {
-                    longitude: 29.700000000000017,
-                    latitude: 27.599999999999994,
+                    longitude: 27.18857380138124,
+                    latitude: 25.82313090400841,
                 },
             },
             {
                 src: '/images/egypt/3.jpg',
                 position: {
-                    longitude: 34.64999999999998,
-                    latitude: 28.200000000000003,
+                    longitude: 30.010144904417672,
+                    latitude: 26.096371232108993,
                 },
             },
             {
                 src: '/images/egypt/4.jpg',
                 position: {
-                    longitude: 32.39999999999998,
-                    latitude: 30,
+                    longitude: 28.64090039437241,
+                    latitude: 27.51950089032313,
                 },
             },
         ],
@@ -601,22 +603,22 @@ export const locations = [
             {
                 src: '/images/uk/2.jpg',
                 position: {
-                    longitude: -4.049999999999983,
-                    latitude: 53.4,
+                    longitude: -2.6008603846048572,
+                    latitude: 52.31482190453795,
                 },
             },
             {
                 src: '/images/uk/3.jpg',
                 position: {
-                    longitude: -1.3499999999999943,
-                    latitude: 53.1,
+                    longitude: -0.280903773377446,
+                    latitude: 52.72580400381506,
                 },
             },
             {
                 src: '/images/uk/1.jpg',
                 position: {
-                    longitude: -2.6999999999999886,
-                    latitude: 54,
+                    longitude: -1.4697711801202615,
+                    latitude: 53.93719484088305,
                 },
             },
         ],
@@ -628,22 +630,22 @@ export const locations = [
             {
                 src: '/images/france/1.jpg',
                 position: {
-                    longitude: -1.3499999999999943,
-                    latitude: 49.5,
+                    longitude: 0.7881369001746918,
+                    latitude: 47.71002878611296,
                 },
             },
             {
                 src: '/images/france/3.jpg',
                 position: {
-                    longitude: 0,
-                    latitude: 47.4,
+                    longitude: 2.060261623790268,
+                    latitude: 46.171887765771544,
                 },
             },
             {
                 src: '/images/france/2.jpg',
                 position: {
-                    longitude: 2.25,
-                    latitude: 48.6,
+                    longitude: 3.4573361971455085,
+                    latitude: 47.18615552492713,
                 },
             },
         ],
