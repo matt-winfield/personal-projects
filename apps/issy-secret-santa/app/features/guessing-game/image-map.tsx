@@ -291,7 +291,7 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
                             filter={['in', 'name', ...completedLocations]}
                         />
                     </Source>
-                    <ImageOverlay />
+                    <ImageOverlay completedLocations={completedLocations} />
                 </Map>
             </div>
             <Bars

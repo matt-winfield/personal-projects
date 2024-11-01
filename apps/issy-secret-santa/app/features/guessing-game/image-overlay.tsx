@@ -5,9 +5,13 @@ import { locations as locationsOriginal } from '../locations/locations';
 import { cn } from '@/utils/misc';
 import { Button } from '@/components/ui/button';
 
-const editMode = true;
+const editMode = false;
 
-export const ImageOverlay = () => {
+interface ImageOverlayProps {
+    completedLocations: string[];
+}
+
+export const ImageOverlay = ({ completedLocations }: ImageOverlayProps) => {
     const [activeImage, setActiveImage] = useState<string | null>();
     const [locations, setLocations] = useState(locationsOriginal);
 
@@ -83,6 +87,9 @@ export const ImageOverlay = () => {
                             width={image.width}
                             height={image.height}
                             active={editMode && image.src === activeImage}
+                            completed={completedLocations.includes(
+                                location.name,
+                            )}
                             locations={locations}
                             setLocations={setLocations}
                         />
@@ -108,6 +115,18 @@ export const ImageOverlay = () => {
     );
 };
 
+interface ImageProps {
+    src: string;
+    lat: number;
+    long: number;
+    width?: number;
+    height?: number;
+    active?: boolean;
+    completed: boolean;
+    locations: typeof locationsOriginal;
+    setLocations: (locations: typeof locationsOriginal) => void;
+}
+
 const Image = ({
     src,
     lat,
@@ -115,18 +134,10 @@ const Image = ({
     width,
     height,
     active,
+    completed,
     locations,
     setLocations,
-}: {
-    src: string;
-    lat: number;
-    long: number;
-    width?: number;
-    height?: number;
-    active?: boolean;
-    locations: typeof locationsOriginal;
-    setLocations: (locations: typeof locationsOriginal) => void;
-}) => {
+}: ImageProps) => {
     const map = useMap();
     const instance = map.current?.getMap() as MapInstance;
     const ref = useRef<HTMLImageElement>(null);
@@ -174,8 +185,9 @@ const Image = ({
                 maxHeight: `${height ?? 5}px`,
             }}
             className={cn(
-                'pointer-events-none absolute left-0 top-0',
+                'pointer-events-none absolute left-0 top-0 opacity-0 transition-opacity duration-300',
                 active && 'border border-red-500',
+                completed && 'opacity-100',
             )}
         />
     );
