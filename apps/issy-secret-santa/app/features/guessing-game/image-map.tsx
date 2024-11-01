@@ -148,6 +148,7 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
             setCompletedLocations((prev) => [...prev, selectedCountry.name]);
             setIsWrong(false);
             setSelectedCountry(null);
+            setHoveredCountry(null);
             setConfetti(true);
             setWrongGuesses(0);
             setShowHelp(false);
@@ -186,6 +187,9 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
 
     const onMapLoad = useCallback(() => {
         setLoading(false);
+        map.current?.getMap().dragRotate.disable();
+        map.current?.getMap().keyboard.disable();
+        map.current?.getMap().touchZoomRotate.disableRotation();
     }, []);
 
     useEffect(() => {
