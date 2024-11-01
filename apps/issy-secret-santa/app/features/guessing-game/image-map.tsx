@@ -16,6 +16,7 @@ import {
     MapRef,
     Source,
 } from '@vis.gl/react-maplibre';
+import { ImageOverlay } from './image-overlay';
 
 export const geoUrl = '/50m.geo.json';
 
@@ -304,6 +305,7 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
                             filter={['in', 'name', ...completedLocations]}
                         />
                     </Source>
+                    <ImageOverlay />
                 </Map>
             </div>
             <Bars
