@@ -150,7 +150,7 @@ const Image = ({
             if (!ref.current) return;
             ref.current.style.left = `${position.x}px`;
             ref.current.style.top = `${position.y}px`;
-            ref.current.style.transform = `scale(${Math.pow(2, instance.getZoom()) / (1.5 * originalImageScaleFactor)})`;
+            ref.current.style.transform = `scale(${Math.pow(2, instance.getZoom()) / (1.5 * originalImageScaleFactor)}) translate(-50%, -50%)`;
         };
 
         const clickListener = (e: MapMouseEvent) => {
