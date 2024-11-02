@@ -95,9 +95,6 @@ importers:
       react-loader-spinner:
         specifier: ^6.1.6
         version: 6.1.6(react-dom@18.3.1)(react@18.3.1)
-      react-simple-maps:
-        specifier: ^3.0.0
-        version: 3.0.0(prop-types@15.8.1)(react-dom@18.3.1)(react@18.3.1)
       remix-utils:
         specifier: ^7.7.0
         version: 7.7.0(@remix-run/cloudflare@2.13.1)(@remix-run/react@2.13.1)(@remix-run/router@1.20.0)(react@18.3.1)
