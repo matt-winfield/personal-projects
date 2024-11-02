@@ -3,6 +3,7 @@ import { ImageMap } from '@/features/guessing-game/image-map';
 import { WelcomeScreen } from '@/features/guessing-game/welcome-screen';
 import { LinksFunction } from '@remix-run/cloudflare';
 import { useState } from 'react';
+import { ClientOnly } from 'remix-utils/client-only';
 
 export default function Index() {
     const [screen, setScreen] = useState(0);
@@ -10,7 +11,11 @@ export default function Index() {
     return (
         <main className="flex h-full flex-col items-center">
             {screen === 0 && <WelcomeScreen onFinish={() => setScreen(1)} />}
-            {screen === 1 && <ImageMap onFinish={() => setScreen(2)} />}
+            {screen === 1 && (
+                <ClientOnly>
+                    {() => <ImageMap onFinish={() => setScreen(2)} />}
+                </ClientOnly>
+            )}
             {screen === 2 && <FinishScreen />}
         </main>
     );

@@ -1,33 +1,94 @@
 import { Button } from '@/components/ui/button';
 import { Location, locations } from '@/features/locations/locations';
 import { cn } from '@/utils/misc';
-import { useCallback, useEffect, useState } from 'react';
-import {
-    ComposableMap,
-    Geographies,
-    Geography,
-    ZoomableGroup,
-} from 'react-simple-maps';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useWindowSize } from '@uidotdev/usehooks';
 import Confetti from 'react-confetti';
 import * as reactLoaderSpinner from 'react-loader-spinner';
 import { preloadImages } from './finish-screen';
 const { Bars } = reactLoaderSpinner;
-import type { Feature } from 'geojson';
+import type { Feature, Geometry } from 'geojson';
+import 'maplibre-gl/dist/maplibre-gl.css';
+import {
+    Layer,
+    Map,
+    MapLayerMouseEvent,
+    MapRef,
+    Source,
+} from '@vis.gl/react-maplibre';
+import { ImageOverlay } from './image-overlay';
 
-export const geoUrl = '/countries-50m.json';
+export const geoUrl = '/50m.geo.json';
 
 type GeoType = {
-    Type: string;
-    rsmKey: string;
-    properties: {
-        name: string;
-    };
+    name: string;
+    name_en: string;
+    iso_a2: string;
+    iso_a3: string;
+    geounit: string;
+    type: string;
+    region_un: string;
+    region_wb: string;
 };
 
-const pictureOffset = { x: 1, y: 1 };
 const initialZoom = 1.2;
 const wrongGuessHintLimit = 3;
+
+const countryFillLayerProps = {
+    id: 'country-fill',
+    type: 'fill',
+    paint: {
+        'fill-opacity': 0,
+    },
+};
+
+// Ecuador doesn't have an outline on the map by default, but it's important for the game!
+const ecuadorOutlineLayerProps = {
+    id: 'equador-outline',
+    type: 'line',
+    paint: {
+        'line-color': 'hsl(248,1%,41%)',
+        'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.4, 4, 1],
+        'line-width': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            3,
+            1,
+            5,
+            1.2,
+            12,
+            3,
+        ],
+    },
+};
+
+const selectedCountryFillLayerProps = {
+    id: 'selected-country-fill',
+    type: 'fill',
+    paint: {
+        'fill-color': '#F53',
+        'fill-opacity': 0.5,
+    },
+};
+
+const hoveredCountryFillLayerProps = {
+    id: 'hovered-country-fill',
+    type: 'fill',
+    paint: {
+        'fill-color': '#F53',
+        'fill-opacity': 0.5,
+    },
+};
+
+const completedCountryFillLayerProps = {
+    id: 'completed-country-fill',
+    type: 'fill',
+    paint: {
+        'fill-color': '#0F0',
+        'fill-opacity': 0.5,
+    },
+};
 
 interface ImageMapProps {
     onFinish?: () => void;
@@ -36,7 +97,7 @@ interface ImageMapProps {
 export const ImageMap = ({ onFinish }: ImageMapProps) => {
     const [currentLocationIndex, setCurrentLocationIndex] = useState(0);
     const [completedLocations, setCompletedLocations] = useState(
-        [] as number[],
+        [] as string[],
     );
     const [isWrong, setIsWrong] = useState(false);
     const [wrongGuesses, setWrongGuesses] = useState(0);
@@ -46,25 +107,21 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
     const [selectedCountry, setSelectedCountry] = useState<GeoType | null>(
         null,
     );
-    const [zoom, setZoom] = useState(initialZoom);
     const [loading, setLoading] = useState(true);
+    const [hoveredCountry, setHoveredCountry] = useState<GeoType | null>(null);
 
-    const onMoveEnd = useCallback(
-        ({ zoom }: { coordinates: [number, number]; zoom: number }) => {
-            setZoom(zoom);
-            const root = document.querySelector(':root') as HTMLElement;
-            root.style.setProperty(
-                '--image-scale',
-                Math.min(20 / zoom, 8).toString(),
-            );
-        },
-        [],
-    );
+    const map = useRef<MapRef>(null);
 
-    const onCountryClick = useCallback((geo: GeoType) => {
-        setSelectedCountry(geo);
-        setIsWrong(false);
-    }, []);
+    const getCountryFromMouseEvent = (e: MapLayerMouseEvent) => {
+        if (!map.current) return;
+        const features = map.current.queryRenderedFeatures(e.point) as Array<
+            Feature<Geometry, GeoType>
+        >;
+        const countryFeature = features.find(
+            (f: any) => f.source === 'countries',
+        );
+        return countryFeature?.properties;
+    };
 
     const onCountrySubmit = useCallback(() => {
         if (!selectedCountry) {
@@ -72,12 +129,13 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
         }
 
         if (
-            selectedCountry.properties.name.toLowerCase() ===
+            selectedCountry.name.toLowerCase() ===
             locations[currentLocationIndex].name.toLowerCase()
         ) {
-            setCompletedLocations((prev) => [...prev, currentLocationIndex]);
+            setCompletedLocations((prev) => [...prev, selectedCountry.name]);
             setIsWrong(false);
             setSelectedCountry(null);
+            setHoveredCountry(null);
             setConfetti(true);
             setWrongGuesses(0);
             setShowHelp(false);
@@ -95,11 +153,30 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
 
     const gameFinished = completedLocations.length === locations.length;
 
-    const parseGeographies = useCallback((geo: Array<Feature>) => {
-        if (geo.length > 0) {
-            setLoading(false);
+    // Handle hovering over countries
+    const onMouseMove = useCallback((e: MapLayerMouseEvent) => {
+        const country = getCountryFromMouseEvent(e);
+        if (country) {
+            setHoveredCountry(country);
+        } else {
+            setHoveredCountry(null);
         }
-        return geo;
+    }, []);
+
+    // Handle selecting a country
+    const onMapClick = useCallback((e: MapLayerMouseEvent) => {
+        const country = getCountryFromMouseEvent(e);
+        if (country) {
+            setSelectedCountry(country);
+            setIsWrong(false);
+        }
+    }, []);
+
+    const onMapLoad = useCallback(() => {
+        setLoading(false);
+        map.current?.getMap().dragRotate.disable();
+        map.current?.getMap().keyboard.disable();
+        map.current?.getMap().touchZoomRotate.disableRotation();
     }, []);
 
     useEffect(() => {
@@ -133,7 +210,7 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
                 )}
             >
                 <div className="text-center">
-                    Selected country: {selectedCountry?.properties.name}
+                    Selected country: {selectedCountry?.name}
                 </div>
                 {isWrong && (
                     <div className="text-center text-red-700">
@@ -181,70 +258,42 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
                 </div>
             </div>
             <div className="h-20 w-full bg-sky-200" />
-            <ComposableMap className="w-full flex-1 bg-sky-200">
-                <ZoomableGroup
-                    zoom={initialZoom}
-                    maxZoom={50}
-                    onMoveEnd={onMoveEnd}
+            <div className="w-full flex-1 bg-sky-200">
+                <Map
+                    initialViewState={{
+                        latitude: 0,
+                        longitude: 0,
+                        zoom: 1,
+                    }}
+                    style={{ width: '100%', height: '100%' }}
+                    mapStyle="/openfreemap-simple.json"
+                    onLoad={onMapLoad}
+                    onMouseMove={onMouseMove}
+                    onClick={onMapClick}
+                    ref={map}
                 >
-                    <Geographies
-                        geography={geoUrl}
-                        parseGeographies={parseGeographies}
-                    >
-                        {({ geographies }) =>
-                            geographies.map((geo: GeoType) => (
-                                <Geography
-                                    key={geo.rsmKey}
-                                    geography={geo}
-                                    onClick={() => onCountryClick(geo)}
-                                    id={geo.rsmKey}
-                                    style={{
-                                        default: {
-                                            outline: 'none',
-                                            fill: getCountryFill(
-                                                selectedCountry,
-                                                geo,
-                                                completedLocations,
-                                                locations,
-                                            ),
-                                        },
-                                        hover: {
-                                            fill: '#F53',
-                                            outline: 'none',
-                                        },
-                                        pressed: {
-                                            fill: '#F53',
-                                            outline: 'none',
-                                        },
-                                    }}
-                                />
-                            ))
-                        }
-                    </Geographies>
-                    {!loading &&
-                        locations.flatMap((location, index) => {
-                            return location.images.map((image) => (
-                                <image
-                                    href={image.src}
-                                    key={image.src}
-                                    x={image.position.x + pictureOffset.x}
-                                    y={image.position.y + pictureOffset.y}
-                                    width={image.width ?? 5}
-                                    height={image.height ?? 5}
-                                    style={{ transformBox: 'fill-box' }}
-                                    className={cn(
-                                        'peer origin-center transition-all duration-300 ease-in-out hover:scale-[5] active:scale-[5] peer-hover:pointer-events-none peer-hover:opacity-0 peer-active:pointer-events-none peer-active:opacity-0',
-                                        !completedLocations.includes(index) &&
-                                            'pointer-events-none opacity-0',
-                                        zoom < 20
-                                            ? `scale-[var(--image-scale)] hover:scale-[max(calc(var(--image-scale)*2),5)] active:scale-[max(calc(var(--image-scale)*2))]`
-                                            : '',
-                                    )}
-                                />
-                            ));
-                        })}
-                </ZoomableGroup>
-            </ComposableMap>
+                    <Source id="countries" type="geojson" data={geoUrl}>
+                        <Layer {...countryFillLayerProps} />
+                        <Layer
+                            {...ecuadorOutlineLayerProps}
+                            filter={['==', 'name', 'Ecuador']}
+                        />
+                        <Layer
+                            {...selectedCountryFillLayerProps}
+                            filter={['==', 'name', selectedCountry?.name ?? '']}
+                        />
+                        <Layer
+                            {...hoveredCountryFillLayerProps}
+                            filter={['==', 'name', hoveredCountry?.name ?? '']}
+                        />
+                        <Layer
+                            {...completedCountryFillLayerProps}
+                            filter={['in', 'name', ...completedLocations]}
+                        />
+                    </Source>
+                    <ImageOverlay completedLocations={completedLocations} />
+                </Map>
+            </div>
             <Bars
                 wrapperClass="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
                 visible={loading}
@@ -268,27 +317,4 @@ export const ImageMap = ({ onFinish }: ImageMapProps) => {
             )}
         </div>
     );
-};
-
-const getCountryFill = (
-    selectedCountry: GeoType | null,
-    geo: GeoType,
-    completedLocations: number[],
-    locations: Location[],
-) => {
-    if (selectedCountry?.rsmKey === geo.rsmKey) {
-        return '#F53';
-    }
-
-    if (
-        completedLocations.includes(
-            locations.findIndex(
-                (location) => location.name === geo.properties.name,
-            ),
-        )
-    ) {
-        return '#0F0';
-    }
-
-    return '#112211';
 };

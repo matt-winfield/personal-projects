@@ -1,0 +1,170 @@
+{
+  "version": 8,
+  "metadata": {},
+  "sources": {
+    "ne2_shaded": {
+      "maxzoom": 6,
+      "tileSize": 256,
+      "tiles": [
+        "https://tiles.openfreemap.org/natural_earth/ne2sr/{z}/{x}/{y}.png"
+      ],
+      "type": "raster"
+    },
+    "openmaptiles": {
+      "type": "vector",
+      "url": "https://tiles.openfreemap.org/planet"
+    }
+  },
+  "sprite": "https://tiles.openfreemap.org/sprites/ofm_f384/ofm",
+  "glyphs": "https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "layout": {"visibility": "visible"},
+      "paint": {"background-color": "#f8f4f0"}
+    },
+    {
+      "id": "natural_earth",
+      "type": "raster",
+      "source": "ne2_shaded",
+      "maxzoom": 7,
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "raster-opacity": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          0,
+          0.6,
+          6,
+          0.1
+        ]
+      }
+    },
+    {
+      "id": "landcover_wood",
+      "type": "fill",
+      "source": "openmaptiles",
+      "source-layer": "landcover",
+      "filter": ["==", ["get", "class"], "wood"],
+      "paint": {
+        "fill-antialias": false,
+        "fill-color": "hsla(98,61%,72%,0.7)",
+        "fill-opacity": 0.4
+      }
+    },
+    {
+      "id": "landcover_grass",
+      "type": "fill",
+      "source": "openmaptiles",
+      "source-layer": "landcover",
+      "filter": ["==", ["get", "class"], "grass"],
+      "paint": {
+        "fill-antialias": false,
+        "fill-color": "rgba(176, 213, 154, 1)",
+        "fill-opacity": 0.3
+      }
+    },
+    {
+      "id": "landcover_ice",
+      "type": "fill",
+      "source": "openmaptiles",
+      "source-layer": "landcover",
+      "filter": ["==", ["get", "class"], "ice"],
+      "paint": {
+        "fill-antialias": false,
+        "fill-color": "rgba(224, 236, 236, 1)",
+        "fill-opacity": 0.8
+      }
+    },
+    {
+      "id": "landcover_wetland",
+      "type": "fill",
+      "source": "openmaptiles",
+      "source-layer": "landcover",
+      "minzoom": 12,
+      "filter": ["==", ["get", "class"], "wetland"],
+      "paint": {
+        "fill-antialias": true,
+        "fill-opacity": 0.8,
+        "fill-pattern": "wetland_bg_11",
+        "fill-translate-anchor": "map"
+      }
+    },
+    {
+      "id": "water",
+      "type": "fill",
+      "source": "openmaptiles",
+      "source-layer": "water",
+      "filter": ["!=", ["get", "brunnel"], "tunnel"],
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgb(158,189,255)"}
+    },
+    {
+      "id": "landcover_sand",
+      "type": "fill",
+      "source": "openmaptiles",
+      "source-layer": "landcover",
+      "filter": ["==", ["get", "class"], "sand"],
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(247, 239, 195, 1)"}
+    },
+    {
+      "id": "boundary_3",
+      "type": "line",
+      "source": "openmaptiles",
+      "source-layer": "boundary",
+      "minzoom": 5,
+      "filter": [
+        "all",
+        [">=", ["get", "admin_level"], 3],
+        ["<=", ["get", "admin_level"], 6],
+        ["!=", ["get", "maritime"], 1],
+        ["!=", ["get", "disputed"], 1],
+        ["!", ["has", "claimed_by"]]
+      ],
+      "paint": {
+        "line-color": "hsl(0,0%,70%)",
+        "line-dasharray": [1, 1],
+        "line-width": ["interpolate", ["linear", 1], ["zoom"], 7, 1, 11, 2]
+      }
+    },
+    {
+      "id": "boundary_2",
+      "type": "line",
+      "source": "openmaptiles",
+      "source-layer": "boundary",
+      "filter": [
+        "all",
+        ["==", ["get", "admin_level"], 2],
+        ["!=", ["get", "maritime"], 1],
+        ["!=", ["get", "disputed"], 1],
+        ["!", ["has", "claimed_by"]]
+      ],
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {
+        "line-color": "hsl(248,1%,41%)",
+        "line-opacity": ["interpolate", ["linear"], ["zoom"], 0, 0.4, 4, 1],
+        "line-width": ["interpolate", ["linear"], ["zoom"], 3, 1, 5, 1.2, 12, 3]
+      }
+    },
+    {
+      "id": "boundary_disputed",
+      "type": "line",
+      "source": "openmaptiles",
+      "source-layer": "boundary",
+      "filter": [
+        "all",
+        ["!=", ["get", "maritime"], 1],
+        ["==", ["get", "disputed"], 1]
+      ],
+      "paint": {
+        "line-color": "hsl(248,1%,41%)",
+        "line-dasharray": [1, 2],
+        "line-width": ["interpolate", ["linear"], ["zoom"], 3, 1, 5, 1.2, 12, 3]
+      }
+    }
+  ],
+  "id": "hulvh3ojy"
+}
